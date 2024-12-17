@@ -5,17 +5,18 @@ import { Model, DataTypes } from 'sequelize'
 export class Usuario extends Model{}
 
 export const initUsuario = (dbConfig) => {
-    Usuario.init(
+    Usuario.init( //metodo init lo hereda de Model, 1er objeto estructura datos de tabla, 2do como son las configuraciones
       {
         id: {
-          type: DataTypes.UUID,
-          defaultValue: DataTypes.UUIDV4,
+          type: DataTypes.UUID, //tipos de datos
+          defaultValue: DataTypes.UUIDV4, //si no mandan nada , valor por defecto
           primaryKey: true,
+          //estos 3 son abstraccion pura
         },
         nombre: {
           type: DataTypes.STRING,
           allowNull: false,
-          validate: {
+          validate: { 
             notEmpty: { msg: "El nombre no puede ser un campo vacío" },
             len: {
               args: [2, 100],
