@@ -82,13 +82,16 @@ export const initUsuario = (dbConfig) => {
         },
       },
       {
-        sequelize: dbConfig,
-        modelName: "Usuario",
-        tableName: "usuarios",
+        sequelize: dbConfig, //coneccion base de dato
+        modelName: "Usuario", //para invocar dentro de servicio
+        tableName: "usuarios", // para invocar dentro de tabla
         timestamps: true,
       }
     );
-
-}
+  }
+   
 
 /* export default Usuario */
+
+//notNull, se asegura que no sea null, notEmpty que no sea ni nullni undefined
+//.init construye tabla
