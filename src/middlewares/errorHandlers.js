@@ -1,5 +1,5 @@
 import { CustomError } from "../errors/CustomError.js";
-import { InternalServerError } from "../errors/TypesError.js";
+import { InternalServerError } from "../errors/typeErrors.js";
 
 export const errorHandler = (err, req, res, next) => {
   if (!(err instanceof CustomError)) {
@@ -21,4 +21,4 @@ export const errorHandler = (err, req, res, next) => {
   );
 
   res.status(err.statusCode).json(errorResponse);
-};
+};  

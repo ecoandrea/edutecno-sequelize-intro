@@ -16,7 +16,7 @@ export const initUsuario = (dbConfig) => {
         nombre: {
           type: DataTypes.STRING,
           allowNull: false,
-          validate: { 
+          validate: {
             notEmpty: { msg: "El nombre no puede ser un campo vacío" },
             len: {
               args: [2, 100],
@@ -76,22 +76,23 @@ export const initUsuario = (dbConfig) => {
             },
           },
         },
-        active: {
-          type: DataTypes.BOOLEAN,
-          defaultValue: true,
-        },
       },
       {
         sequelize: dbConfig, //coneccion base de dato
         modelName: "Usuario", //para invocar dentro de servicio
         tableName: "usuarios", // para invocar dentro de tabla
         timestamps: true,
+        paranoid: true, // habilito el soft delete al usar destroy - pero, agrega un campo nuevo llamado deleteAt
       }
     );
   }
+
+
    
 
 /* export default Usuario */
 
 //notNull, se asegura que no sea null, notEmpty que no sea ni nullni undefined
 //.init construye tabla
+
+//usando paranoid no es necesario usar active , que es mas cuando se hace manual y no usando sequelize
