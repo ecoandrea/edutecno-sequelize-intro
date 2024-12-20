@@ -23,21 +23,21 @@ export const createUser = async(req, res, next) => {
 }
 
 
-export const getAllUsers = async(req, res, next) => {
+export const getAllUsersIncludeDeleted = async(req, res, next) => {
     try {
-      const users = await Usuario.findAll({paranoid : false})
+        const users = await Usuario.findAll({ paranoid: false });
 
-      isEmptyResponseData(users)
+        isEmptyResponseData(users)
 
-      res.status(200).json({
-        message: 'Usuarios obtenidos con éxito',
-        status: 200,
-        data: users
-      })
+        res.status(200).json({
+            message: 'Usuarios encontrados con éxito',
+            status: 200,
+            data: users
+        })
     } catch (error) {
-     next(error)
+        next(error)
     }
-  }
+}
 
   export const getAllActiveUsers = async(req, res, next) => {
     try {
