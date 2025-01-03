@@ -8,7 +8,7 @@ export const dbConnect = async() => {
     try {
         await dbConfig.authenticate();// esta linea hace la coneccion
         initModels(dbConfig)
-        setupAssociation
+        setupAssociation()
         await dbConfig.sync({ alter:true }) //modifica las tablas en base a como esta construida
 
         console.log('Logramos conectarnos a Postgre a traves de Sequelize 😱')

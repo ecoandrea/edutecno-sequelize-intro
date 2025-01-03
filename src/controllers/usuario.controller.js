@@ -1,7 +1,7 @@
 
 import { NotFoundError, ValidationError } from "../errors/typeErrors.js";
 import { Usuario }  from "../models/Usuario.model.js"
-import { validateExistData } from "../utils/validations/Validate.js";
+import { isEmptyResponseData, validateExistData } from "../utils/validations/Validate.js";
 
 
 export const createUser = async(req, res, next) => {
@@ -60,7 +60,7 @@ export const getAllUsersIncludeDeleted = async(req, res, next) => {
     }
 }
 
-export const getUsersByFilters = async(req, res) => {
+export const getUsersByFilters = async(req, res, next) => {
     try {
         const filters = req.query; //Esto devuelve un objeto con los filtros
         const whereCluase = {}; //para generar las clausulas
@@ -77,6 +77,8 @@ export const getUsersByFilters = async(req, res) => {
             attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] }
             
         })
+
+        isEmptyResponseData(users);
 
         res.status(200).json({
           message: "Usuarios encontrados con éxito",
@@ -167,7 +169,7 @@ export const updateUser = async(req, res, next) => {
 }
 
 
-    export const deletUser = async (req, res) => {
+    export const deletUser = async (req, res, next) => {
             try {
                 const { id } = req.params
                 
@@ -216,7 +218,7 @@ export const restoreUser =  async(req, res, next) => {
 }
 
 
-export const physicDeletUser = async (req, res) => {
+export const physicDeletUser = async (req, res, next) => {
     try {
         const { id } = req.params
         

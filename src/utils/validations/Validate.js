@@ -1,5 +1,5 @@
 import { Op } from "sequelize"
-import { ValidationError } from "../../errors/typeErrors.js"
+import { NotFoundError, ValidationError } from "../../errors/typeErrors.js"
 
 export const isArrayValidate = (data) => {
     if (!Array.isArray(data))
@@ -8,10 +8,36 @@ export const isArrayValidate = (data) => {
       );
 }
 
+/**
+ * Válida que exista un registro dentro de una Modelo especfico a traves de su Primary Key
+ * @param {Model} Model - Modelo constructor de los datos que se comúnica con la DB
+ * @param {string} pk - Primary Key para ejecutar la busqueda en la tabla
+ * @param {boolean} transaction - Valor booleano que indica si la función es llamada dentro de una transacción 
+ * @param {Promise<object>} transactionConfig - Variable que contiene el inicio de la transacción de Sequelize
+ * @throws {NotFoundError} - Error de no encontrado si no encontramos la data a traves del primary key dentro del modelo 
+ * @returns {Promise<object>} - Returna la data del modelo consultado
+ */
 
-export const isEmptyData = (data) => {
+//esta funcion es para que funcione habiendo tranaccion o no en controller
+export const notFoundDataRequestByPk = async(Model, pk, transaction = false, transactionConfig) => {  
+    let data = null
+    
+    if(transaction) {  //si transaccion es true
+        data = await Model.findByPk(pk, { transaction: transactionConfig }); //
+    } else { //si transaccion en false
+        data = await Model.findByPk(pk);
+    }
+
+    if(!data) throw new NotFoundError(
+      `datos con la primary key ${pk} no encontrados en la tabla ${Model.tableName}`
+    );
+
+    return data
+}
+
+export const isEmptyData = (data, field) => {
     if(!data || data.length === 0) {
-        throw new ValidationError("la data ingresada esta vacía")
+        throw new ValidationError(`la data en ${field} ingresada no puede estar vacía`)
     }  
 }
 
@@ -19,6 +45,20 @@ export const isEmptyResponseData = (data) => {
     if (!data || data.length === 0) {
       throw new NotFoundError("la data solicitada no fue encontrada");
     }  
+}
+
+//que fecha cumpla estandares pedidos
+export const isValidDate = (fecha) => {
+    if(!fecha) return new Date.now()
+    const parseDate = new Date(fecha);
+
+    if (isNaN(parseDate.getTime())) {
+      throw new ValidationError(
+        "La fecha debe tener el formato adecuado de YYYY-MM-DD"
+      );
+    }
+    return parseDate
+    
 }
 /**
  * Valida que el regsitro que se esta evaluando no exista previamente para un campo dado que se espera que sea único. En caso de existir un valor dúplicado en un campo único, arrojara un error de validación

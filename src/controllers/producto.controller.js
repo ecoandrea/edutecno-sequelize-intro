@@ -1,4 +1,7 @@
+
+import { NotFoundError } from "../errors/typeErrors.js";
 import { Producto } from "../models/Producto.model.js"
+import { isEmptyResponseData } from "../utils/validations/Validate.js";
 
 
 
@@ -46,7 +49,7 @@ export const getProductById = async (req, res, next) => {
         }
     });
 
-    isEmptyResponseData(products);
+    isEmptyResponseData(product);
 
     res.status(200).json({
       message: "Producto encontrado con éxito",
