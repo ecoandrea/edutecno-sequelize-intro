@@ -1,6 +1,14 @@
 
-<div class="header-container">
-    <h1 class="title">Hola a todos, este es mi servidor!!!</h1>
-    <p>Estamos trabajando con motores de Plantila de HBS directamente en un servidor monolitico</p>
-</div>
+{{> header
+    title="Bienvenido a Nuestra Tienda"
+    subtitle="Esperamos que encuentres lo que buscas"
+
+}} {{!nombre de partial es el del archivo}}
+
+<h2>Este es un segundo titulo de la página</h2>
+
+{{> infoSection
+    title="Esta es una nueva sección"
+    paragraph= "Este es un parrafo que deberían tener mucho texto Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit optio non amet blanditiis rerum autem expedita, hic ex cupiditate neque cum, repudiandae facere atque iure aut porro, nulla repellendus? Sequi."
+}}
 
