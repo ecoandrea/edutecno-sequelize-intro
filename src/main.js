@@ -20,7 +20,11 @@ app.engine('.hbs', engine({ //primer engine es de express, 2do se pasa como argu
     extname: '.hbs', //extension, sino se especifica asume que sera handlebar, es opcional
     layoutsDir: path.join(process.cwd(), 'src', 'views', 'layouts'),// crea camino, es obligatorios
     defaultLayout: 'main', //por defecto es main , no seria necesario escribirlo, es opcional
-    partialsDir: path.join(process.cwd(), 'src', 'views', 'partials') //obligatorio
+    partialsDir: path.join(process.cwd(), 'src', 'views', 'partials'), //obligatorio
+     /* runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    } */
 }));
 
 

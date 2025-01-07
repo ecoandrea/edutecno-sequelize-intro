@@ -1,0 +1,19 @@
+{{> header
+    title="productos de primera"
+}}
+
+<section class="product-list">
+    <h2>Listado de Nuestros de Productos</h2>
+
+    <div class="cards-container">
+        {{#each products}} //recorre usando operador y llamandolo con #
+            {{> card
+                title=this.nombre
+                id=this.id
+                description=this.description
+                stock=this.stock
+                price=this.precio
+            }}
+        {{/each}} //se debe cerrar
+    </div>
+</section>
