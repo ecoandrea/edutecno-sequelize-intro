@@ -27,3 +27,12 @@ export const renderListProduct = async(req, res, next) => {
 }
 
 //raw transforma rspta de sequelize (instancia prototype) a texto plano
+
+export const renderRegisterForms = (req, res) => {
+    res.render('usuarios/register')
+//es mas simple porque la op de registro la hace createUser
+}
+
+export const renderRegisterSuccess = (req, res) => {
+    res.render('usuarios/successRegister')
+}
